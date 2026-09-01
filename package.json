@@ -1,7 +1,8 @@
 {
-  "name": "product-filter",
+  "name": "filterkit",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.1.0",
+  "description": "A fast, filterable product catalog built with React, TypeScript, and Tailwind CSS.",
   "type": "module",
   "scripts": {
     "dev": "vite",

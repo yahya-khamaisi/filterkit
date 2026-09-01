@@ -1,72 +1,61 @@
-# Product Filter (React + TypeScript + Vite)
+# FilterKit
 
-A responsive catalog explorer that fetches live product data from [DummyJSON](https://dummyjson.com/products), displays it in a card grid, and lets you filter by search term, category, and price range. The UI keeps the original handcrafted look-and-feel but is wired up with Tailwind CSS so you can comfortably extend styling with utilities later.
+A fast, filterable product catalog built with React, TypeScript, Vite, and Tailwind CSS. Products load live from [DummyJSON](https://dummyjson.com/products) and can be searched, filtered, and sorted entirely client-side.
 
 ## Features
 
-- **Live data fetching** – products load on mount with graceful loading/error/empty states.
-- **Composable filters** – search, category select, and min/max price inputs work together via memoized logic.
-- **Product cards** – show thumbnail, title, brand, category, rating, and price with responsive layout.
-- **Styling stack** – bespoke CSS theme plus Tailwind utilities for incremental enhancement.
+- **Live data** — products fetched on load with dedicated loading (skeleton grid), error, and empty states.
+- **Instant filtering** — search by title, filter by category, and constrain by price range, all combined via memoized logic.
+- **Sorting** — order results by price (low→high, high→low) or by rating.
+- **Clean UI** — sticky filter bar, responsive card grid, subtle hover interactions, accessible labels and live regions.
+- **Typed end-to-end** — strict TypeScript across components and data models.
 
-## Prerequisites
+## Tech stack
 
-- **Node.js** ≥ 20.19.0 (Vite warns if you use older versions; 20.18.1 works but is not officially supported).
-- **npm** ≥ 10 (bundled with current Node releases).
+- [React 19](https://react.dev/) + [TypeScript](https://www.typescriptlang.org/)
+- [Vite](https://vitejs.dev/) for dev server and bundling
+- [Tailwind CSS](https://tailwindcss.com/) for styling
+- [DummyJSON](https://dummyjson.com/) as the public product data source (no API key required)
 
-## Setup & Installation
+## Getting started
 
-1. **Clone the repo**
-   ```bash
-   git clone <your-fork-or-clone-url> product-filter
-   cd product-filter
-   ```
+### Prerequisites
 
-2. **Install dependencies**
-   ```bash
-   npm install
-   ```
+- Node.js ≥ 20.19
+- npm ≥ 10
 
-3. **Start the dev server**
-   ```bash
-   npm run dev
-   ```
-   - Vite prints a local URL (default `http://localhost:5173`).
-   - Hot Module Replacement shows edits immediately.
+### Install and run
 
-4. **Build for production**
-   ```bash
-   npm run build
-   ```
-   - Runs TypeScript project references and Vite’s production bundler.
-   - Outputs static assets to `dist/`.
+```bash
+git clone https://github.com/yahya-khamaisi/filterkit.git
+cd filterkit
+npm install
+npm run dev
+```
 
-5. **Preview the production build (optional)**
-   ```bash
-   npm run preview
-   ```
+Vite will print a local URL (default `http://localhost:5173`) with hot module replacement enabled.
 
-6. **Lint the project (optional)**
-   ```bash
-   npm run lint
-   ```
+### Other scripts
 
-## Project Structure
+```bash
+npm run build    # type-check + production build to dist/
+npm run preview  # preview the production build locally
+npm run lint     # run ESLint
+```
 
-- `src/App.tsx` – data fetching, filter state, derived lists, and layout.
-- `src/components/ProductCard.tsx` – UI for each product card.
-- `src/App.css` – handcrafted layout/card/filter styling.
-- `src/index.css` – Tailwind entry + shared base styles/background.
-- `tailwind.config.js` & `postcss.config.js` – Tailwind tooling configuration.
+## Project structure
 
-## Environment Notes
+```
+src/
+├── App.tsx                        # data fetching, filter/sort state, layout
+├── components/
+│   ├── ProductCard.tsx            # product card UI
+│   └── ProductCardSkeleton.tsx    # loading placeholder
+└── index.css                      # Tailwind entry + base styles
+```
 
-- Calls the DummyJSON public API directly—no API key required.
-- Ensure outbound HTTPS to `https://dummyjson.com` is allowed in your runtime.
-- Upgrade Node to ≥20.19.0 to silence Vite’s engine warning.
+## Extending it
 
-## Extending the UI
-
-- Tailwind utilities are ready to use; gradually replace bespoke classes if desired.
-- Add new filters (brand, rating, etc.) by extending the `Product` type and `filteredProducts` memo.
-- When adding static assets, place them in `public/` and reference using `/asset-name.ext`.
+- Add new filters (brand, min rating, etc.) by extending the `Product` type and the `filteredProducts` memo in `src/App.tsx`.
+- Swap the data source by changing the `fetch` call — the rest of the UI is data-source agnostic as long as the shape matches `Product`.
+- Static assets go in `public/` and are referenced as `/asset-name.ext`.
